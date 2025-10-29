@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UTS</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      th, td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: center;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="forms-container">
+      <div class="form">
+        <h3>Input Data</h3>
+        <h4>NAMA LENGKAP</h4>
+        <input id="nama" type="text" placeholder="Masukkan Nama" /><br />
+
+        <h4>NIM</h4>
+        <input id="nim" type="text" placeholder="Masukkan Nim" /><br />
+
+        <h4>SEMESTER</h4>
+        <input id="semester" type="number" placeholder="1 - 8" /><br />
+
+        <h4>PROGRAM STUDI</h4>
+        <select id="prodi">
+          <option value="">--Pilih Program Studi--</option>
+          <option value="Teknik Informatika">Teknik Informatika</option>
+          <option value="Teknik Mesin">Teknik Mesin</option>
+          <option value="Manajemen">Manajemen</option>
+        </select><br />
+
+        <h4>EMAIL</h4>
+        <input id="email" type="email" placeholder="email@gmail.com" /><br />
+      </div>
+
+      <div class="button">
+        <button class="btn-primary" onclick="kirimData()">KIRIM DATA</button>
+      </div>
+
+      <p class="highlight">Isi data Mahasiswa dengan benar</p>
+    </div>
+
+    <div class="right-container">
+      <div class="Informasi">
+        <h3>Informasi Pengiriman</h3>
+        <h5 class="highlight">
+          Isi data Mahasiswa dengan benar
+          <p>Data ditampilkan di tabel</p>
+          <p>Data disimpan di array</p>
+          <p>Jumlah data di-update</p>
+          <p>Form akan kosong kembali</p>
+        </h5>
+      </div>
+    </div>
+
+    <div class="tabel-container">
+      <h3>Data Mahasiswa</h3>
+      <table id="tabelMahasiswa">
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nama</th>
+            <th>Program Studi</th>
+            <th>Semester</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <script>
+      let dataMahasiswa = [];
+
+      function kirimData() {
+        const nama = document.getElementById("nama").value.trim();
+        const nim = document.getElementById("nim").value.trim();
+        const semester = document.getElementById("semester").value.trim();
+        const prodi = document.getElementById("prodi").value;
+        const email = document.getElementById("email").value.trim();
+
+        if (!nama || !nim || !semester || !prodi || !email) {
+          alert("Harap isi semua data dengan lengkap!");
+          return;
+        }
+
+        // Simpan ke array
+        dataMahasiswa.push({ nama, nim, semester, prodi, email });
+
+        // Tampilkan di console
+        console.log("Data Mahasiswa:", dataMahasiswa);
+
+        // Update tabel
+        tampilkanData();
+
+        // Reset form
+        document.getElementById("nama").value = "";
+        document.getElementById("nim").value = "";
+        document.getElementById("semester").value = "";
+        document.getElementById("prodi").value = "";
+        document.getElementById("email").value = "";
+      }
+
+      function tampilkanData() {
+        const tbody = document.querySelector("#tabelMahasiswa tbody");
+        tbody.innerHTML = "";
+        dataMahasiswa.forEach((mhs, index) => {
+          const row = `<tr>
+                <td>${index + 1}</td>
+                <td>${mhs.nama}</td>
+                <td>${mhs.prodi}</td>
+                <td>${mhs.semester}</td>
+              </tr>`;
+          tbody.innerHTML += row;
+        });
+      }
+    </script>
+  </body>
+</html>
